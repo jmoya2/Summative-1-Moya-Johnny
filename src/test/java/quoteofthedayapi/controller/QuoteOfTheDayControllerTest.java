@@ -64,8 +64,6 @@ public class QuoteOfTheDayControllerTest {
         inputQuote.setQuote("Be yourself; everyone else is already taken.");
         inputQuote.setAuthor("Oscar Wilde");
 
-        String inputJson = mapper.writeValueAsString(inputQuote);
-
         mockMvc.perform(delete("/quotes/" + inputQuote.getId()).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isNoContent());
     }
 }

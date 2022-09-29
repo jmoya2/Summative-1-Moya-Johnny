@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(Magic8BallController.class)
@@ -37,13 +37,24 @@ public class Magic8BallControllerTest {
     public void shouldReturnRandomAnswer() throws Exception {
         Answer inputAnswer = new Answer();
 
-        inputAnswer.setId(7);
         inputAnswer.setQuestion("Will I win the lottery?");
-
-        //Get random answer using post coding.
 
         String inputJson = mapper.writeValueAsString(inputAnswer);
 
         mockMvc.perform(post("/magic").content(inputJson).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldReturnAllAnswersInCollection() throws Exception {
+        mockMvc.perform(get("/magic")).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldDeleteById() throws Exception {
+        Answer inputAnswer = new Answer();
+
+        inputAnswer.setId(6);
+
+        mockMvc.perform(delete("/magic/" + inputAnswer.getId()).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isNoContent());
     }
 }

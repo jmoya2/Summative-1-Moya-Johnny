@@ -39,13 +39,7 @@ public class Magic8BallController {
         Random random = new Random();
         int randomId = random.nextInt(answerList.size());
 
-        question.setId(idCounter++);
-        question.setQuestion(question.getQuestion());
-        question.setAnswer(answerList.get(randomId).getAnswer());
-
-        answerList.add(question);
-
-        return question.getAnswer();
+        return answerList.get(randomId).getAnswer();
     }
 
     @RequestMapping(value = "/magic/{id}", method = RequestMethod.DELETE)

@@ -64,8 +64,6 @@ public class WordOfTheDayControllerTest {
         inputDefinition.setWord("lido");
         inputDefinition.setDefinition("a fashionable beach resort.");
 
-        String inputJson = mapper.writeValueAsString(inputDefinition);
-
         mockMvc.perform(delete("/words/" + inputDefinition.getWord()).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isNoContent());
     }
 }
